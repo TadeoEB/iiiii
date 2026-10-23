@@ -10,16 +10,47 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<!-- Google Fonts Import: Roboto (Unified Weights) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
 		<style>
+			/* UNIFIED TYPOGRAPHY: Forces Roboto across all HTML elements and overrides template defaults */
+			*, body, input, select, textarea, h1, h2, h3, h4, h5, h6, strong, b, a, p, span, li {
+				font-family: 'Roboto', sans-serif !important;
+			}
+
+			/* Sidebar Title Harmonization: Clean, uniform rendering for sidebar intro */
+			#header h1 {
+				font-size: 1.15em !important;
+				font-weight: 300 !important;
+				line-height: 1.6 !important;
+				color: rgba(255, 255, 255, 0.88) !important;
+				letter-spacing: 0 !important;
+			}
+
+			#header h1 strong {
+				font-weight: 700 !important;
+				color: #ffffff !important;
+			}
+
+			/* Section Headings Consistency */
+			h2, h3, h4, h5, h6, .major h2 {
+				font-weight: 700 !important;
+				letter-spacing: -0.01em !important;
+			}
+
 			/* Custom Sidebar Background Image with Dark Overlay for Text Readability */
 			#header {
-				background-image: linear-gradient(to bottom, rgba(20, 30, 25, 0.65), rgba(20, 30, 25, 0.65)), url("images/DSC08980.jpg") !important;
+				background-image: linear-gradient(to bottom, rgba(20, 30, 25, 0.70), rgba(20, 30, 25, 0.70)), url("images/DSC08980.jpg") !important;
 				background-position: center !important;
 				background-size: cover !important;
 				background-repeat: no-repeat !important;
 			}
 
-			/* UNIFORM THUMBNAIL GRID: Forces identical orientation and size for all gallery images */
+			/* UNIFORM THUMBNAIL GRID: Forces identical orientation and size for all gallery cards */
 			.work-item .thumb {
 				display: block;
 				width: 100%;
@@ -50,6 +81,93 @@
 			.image.avatar img {
 				width: 100% !important;
 			}
+		
+			/* MAIN CONTAINER RESET & FULL WIDTH EXTENSION */
+			#main {
+				padding-top: 0 !important;
+				max-width: 100% !important; /* Permite que el contenedor y la barra abarquen todo el ancho derecho */
+			}
+
+			/* ELIMINATE SECOND GREY LINE & UNNECESSARY SECTION BORDERS */
+			#main > section,
+			section.main-view,
+			section.project-detail,
+			#one, #two {
+				border-top: none !important;
+				padding-top: 0.5em !important;
+				margin-top: 0 !important;
+			}
+
+			/* STICKY TOP NAVIGATION MENU (FULL WIDTH & NO ROUNDED CORNERS) */
+			#top-nav {
+				position: sticky !important;
+				top: 0 !important;
+				z-index: 1000 !important;
+				background-color: #ffffff !important; /* Blanco puro para fusionarse con el fondo */
+				margin-top: 0 !important;
+				margin-bottom: 2em !important;
+				margin-left: -4em !important;
+				margin-right: -4em !important;
+				padding: 1.5em 4em 1em 4em !important; /* Más espacio para respirar */
+				border-radius: 0 !important;
+				border: none !important;
+				border-bottom: 1px solid rgba(0,0,0,0.05) !important; /* Sutil separación */
+				box-shadow: none !important;
+			}
+
+			@media screen and (max-width: 980px) {
+				#top-nav {
+					margin-left: -2em !important;
+					margin-right: -2em !important;
+					padding-left: 2em !important;
+					padding-right: 2em !important;
+				}
+			}
+
+			@media screen and (max-width: 480px) {
+				#top-nav {
+					margin-left: -1.5em !important;
+					margin-right: -1.5em !important;
+					padding-left: 1.5em !important;
+					padding-right: 1.5em !important;
+				}
+			}
+
+			#top-nav ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em; /* Mayor espacio entre enlaces */
+				align-items: center;
+			}
+
+			#top-nav li {
+				padding: 0;
+				margin: 0;
+			}
+
+			#top-nav a.nav-link {
+				text-decoration: none;
+				color: #666666 !important; /* Gris suave */
+				font-size: 0.95em;
+				font-weight: 500;
+				letter-spacing: 0.02em;
+				text-transform: capitalize; /* Estilo título en lugar de mayúsculas */
+				padding: 0.3em 0;
+				border: none !important;
+				border-bottom: 2px solid transparent !important;
+				background: none !important;
+				box-shadow: none !important;
+				transition: color 0.25s ease, border-color 0.25s ease;
+			}
+
+			#top-nav a.nav-link:hover,
+			#top-nav a.nav-link.active {
+				color: #49bf9d !important;
+				border-bottom-color: #49bf9d !important; /* Línea inferior para sección activa */
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -70,19 +188,19 @@
 		<!-- Main Container -->
 			<div id="main">
 
-				<!-- PERSISTENT TOP NAVIGATION BAR (About Me, Publications & Conferences, Photos) -->
-				<nav id="top-nav" style="margin-bottom: 2em; padding-bottom: 1em; border-bottom: 1px solid rgba(255, 255, 255, 0.12);">
-					<ul class="actions" style="flex-wrap: wrap; gap: 10px; margin-bottom: 0;">
-						<li><a href="javascript:void(0)" onclick="closeProject(event)" class="button">About Me</a></li>
-						<li><a href="javascript:void(0)" onclick="openProject('publicaciones-conferencias', event)" class="button">Publications & Conferences</a></li>
-						<li><a href="javascript:void(0)" onclick="openProject('galeria-fotografica', event)" class="button">Photos</a></li>
+				<!-- PERSISTENT TOP NAVIGATION BAR -->
+				<nav id="top-nav">
+					<ul>
+						<li><a href="javascript:void(0)" onclick="closeProject(event)" class="nav-link active">Home</a></li>
+						<li><a href="javascript:void(0)" onclick="openProject('publicaciones-conferencias', event)" class="nav-link">Publications & Conferences</a></li>
+						<li><a href="javascript:void(0)" onclick="openProject('galeria-fotografica', event)" class="nav-link">Photos</a></li>
 					</ul>
 				</nav>
 
 				<!-- MAIN VIEW: SECTION 1 (About Me + Download CV Button) -->
 					<section id="one" class="main-view">
-						<!-- HERO BANNER -->
-						<div class="image fit" style="margin-bottom: 2em; overflow: hidden; border-radius: 8px; max-height: 280px; background: #000;">
+						<!-- HERO BANNER (Placed at the top before text) -->
+						<div class="image fit" style="margin-bottom: 1.5em; overflow: hidden; border-radius: 8px; max-height: 280px; background: #000;">
 							<img src="images/DSC01340.jpg" alt="Terrestrial Snail Macro Photography" style="width: 100%; height: 280px; object-fit: cover; object-position: center 45%;" />
 						</div>
 
@@ -91,28 +209,16 @@
 						</header>
 						<p>I am Tadeo Esquivel, a biologist and researcher specializing in the ecology, taxonomy, and conservation of tropical biodiversity, with a focus on continental mollusks. Raised in Cancún, witnessing the rapid environmental transformation of my hometown driven by urban growth motivated me to move to Mexico City to pursue my scientific training at UNAM. My academic path is defined by a strong global perspective—having completed exchange programs in Spain (University of Oviedo) and Germany (Freie Universität Berlin)—and a drive to investigate understudied, highly vulnerable species. I am passionate about integrating rigorous fieldwork, modern ecological modeling, and community engagement to advance biodiversity conservation.</p>
 						
-						<!-- CV BUTTON PLACED IN ABOUT ME SECTION -->
-						<ul class="actions" style="margin-top: 1.5em;">
-							<li><a href="cv.pdf" target="_blank" class="button icon solid fa-file-alt">Curriculum Vitae (CV)</a></li>
+						<!-- CV & THESIS BUTTONS PLACED IN ABOUT ME SECTION -->
+						<ul class="actions" style="margin-top: 1.5em; flex-wrap: wrap; gap: 10px;">
+							<li><a href="https://drive.google.com/drive/folders/0Byj-XcjXOmkNflU0LVlLQzMyYUQ4QXV5QXl0OHVFTi1pd0xJcG9fUEt3QXJfXzgzdGgzVXM?resourcekey=0-tBSyuXeinj6BoOS2vLSCpA&usp=sharing" target="_blank" rel="noopener noreferrer" class="button icon solid fa-file-alt">Curriculum Vitae (CV)</a></li>
 						</ul>
 					</section>
 
-				<!-- MAIN VIEW: SECTION 2 (Projects Gallery - Perfectly Uniform Grid) -->
+				<!-- MAIN VIEW: SECTION 2 (Projects Gallery - Photo First, Then Text) -->
 					<section id="two" class="main-view">
 						<h2>Featured Projects & Research</h2>
 						<div class="row">
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="javascript:void(0)" onclick="openProject('proyecto-kabah', event)" class="image fit thumb"><img src="images/593541695_4421191648109111_3467348682334685840_n.jpg" alt="Kabah Park Inventory" /></a>
-								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-kabah', event)">Taxonomic Inventory in Kabah Park</a></h3>
-								<p>Study of continental malacofauna in Cancún, Quintana Roo. Recorded 46 taxa, 16 new state records, and 2 exotic species.</p>
-							</article>
-
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="javascript:void(0)" onclick="openProject('proyecto-especies-introducidas', event)" class="image fit thumb"><img src="images/Captura de pantalla 2026-10-20 162836.png" alt="Invasive Mollusks Density Map Mexico" /></a>
-								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-especies-introducidas', event)">Invasive Non-Native Species: Ecology & Distribution</a></h3>
-								<p>National spatial assessment of introduced mollusks in Mexico using GBIF modeling, featuring <em>Tomostele musaecola</em> and <em>Marisa cornuarietis</em>.</p>
-							</article>
-
 							<article class="col-6 col-12-xsmall work-item">
 								<a href="javascript:void(0)" onclick="openProject('proyecto-tuxtlas', event)" class="image fit thumb"><img src="images/DSC08107.jpg" alt="Los Tuxtlas Canopy Sampling" /></a>
 								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-tuxtlas', event)">Canopy Ecology in Los Tuxtlas</a></h3>
@@ -120,9 +226,9 @@
 							</article>
 
 							<article class="col-6 col-12-xsmall work-item">
-								<a href="javascript:void(0)" onclick="openProject('proyecto-zimapan', event)" class="image fit thumb"><img src="images/IMG_20231115_074603.jpg" alt="Zimapán Reservoir Facilities" /></a>
-								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-zimapan', event)">Limnology & Zooplankton at Zimapán Dam</a></h3>
-								<p>Analysis of +20,000 zooplankton specimens and water quality parameters to assess hypertrophication and support local fisheries.</p>
+								<a href="javascript:void(0)" onclick="openProject('proyecto-kabah', event)" class="image fit thumb"><img src="images/593541695_4421191648109111_3467348682334685840_n.jpg" alt="Kabah Park Inventory" /></a>
+								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-kabah', event)">Taxonomic Inventory in Kabah Park</a></h3>
+								<p>Study of continental malacofauna in Cancún, Quintana Roo. Recorded 46 taxa, 16 new state records, and 2 exotic species.</p>
 							</article>
 
 							<article class="col-6 col-12-xsmall work-item">
@@ -132,8 +238,20 @@
 							</article>
 
 							<article class="col-6 col-12-xsmall work-item">
+								<a href="javascript:void(0)" onclick="openProject('proyecto-especies-introducidas', event)" class="image fit thumb"><img src="images/DSC01238.jpg" alt="Corbicula sp. Asian clam specimen" /></a>
+								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-especies-introducidas', event)">Invasive Non-Native Species: Ecology & Distribution</a></h3>
+								<p>National spatial assessment of introduced mollusks in Mexico using GBIF modeling, featuring <em>Tomostele musaecola</em> and <em>Marisa cornuarietis</em>.</p>
+							</article>
+
+							<article class="col-6 col-12-xsmall work-item">
+								<a href="javascript:void(0)" onclick="openProject('proyecto-zimapan', event)" class="image fit thumb"><img src="images/IMG_20231115_074603.jpg" alt="Zimapán Reservoir Facilities" /></a>
+								<h3><a href="javascript:void(0)" onclick="openProject('proyecto-zimapan', event)">Limnology & Zooplankton at Zimapán Dam</a></h3>
+								<p>Analysis of +20,000 zooplankton specimens and water quality parameters to assess hypertrophication and support local fisheries. Led by Dr. Fernando Cordova from the Instituto de Ciencias del Mar y Limnología.</p>
+							</article>
+
+							<article class="col-6 col-12-xsmall work-item">
 								<a href="javascript:void(0)" onclick="openProject('colaboraciones-internacionales', event)" class="image fit thumb"><img src="images/DSC00689.jpg" alt="Freshwater Snail Sierra Gorda" /></a>
-								<h3><a href="javascript:void(0)" onclick="openProject('colaboraciones-internacionales', event)">International Collaborations & Conservation Grants</a></h3>
+								<h3><a href="javascript:void(0)" onclick="openProject('colaboraciones-internacionales', event)">International Collaborations & Conservation</a></h3>
 								<p>MBZ Conservation Fund grant for Sierra Gorda freshwater snails (co-directed with Rodrigo Rangel), Senckenberg biomechanics, and IUCN Red List.</p>
 							</article>
 
@@ -163,7 +281,7 @@
 							<li><strong>Esquivel Blanco T.</strong>, Rangel Velasco R. & Naranjo-García E. (Under Review). First records of the non-native predator <em>Tomostele musaecola</em> in Mexico: Potential dispersal in Cancún through soil tampering. <em>Folia Malacologica</em>.</li>
 							<li>Rangel Velasco R., <strong>Esquivel Blanco T.</strong> & Naranjo García E. (Under Review). Nuevos registros y respuestas ecológicas de gasterópodos de agua dulce a la integridad del hábitat en el Lago de Tecocomulco, Hidalgo, México. <em>Limnetica</em>.</li>
 							<li><strong>2026.</strong> Rangel Velasco R., <strong>Esquivel Blanco T.</strong> & Naranjo García E. La Malacofauna de la Ciudad de México: Un Registro Histórico y Actual. <em>Acta Zoológica Mexicana</em> 42(1), 1–13. <a href="https://doi.org/10.21829/azm.2026.4212799" target="_blank">https://doi.org/10.21829/azm.2026.4212799</a></li>
-							<li><strong>2025.</strong> <strong>Esquivel Blanco T.</strong>, Rangel Velasco R., Ortigosa D. & Naranjo-García E. Non-native freshwater mollusks in Mexico: current status and new records. <em>Hidrobiológica</em> 35 (3): 225-230.</li>
+							<li><strong>2025.</strong> <strong>Esquivel Blanco T.</strong>, Rangel Velasco R., Ortigosa D. & Naranjo-García E. Non-native freshwater mollusks in Mexico: current status and new records. <em>Hidrobiológica</em> 35 (3): 225-230. <a href="https://hidrobiologica.izt.uam.mx/hidrobiologica/index.php/revHidro/article/view/1820/1273" target="_blank" rel="noopener noreferrer">[Artículo / PDF]</a></li>
 						</ul>
 
 						<hr />
@@ -171,15 +289,15 @@
 						<h3>First Authored Conference Presentations</h3>
 						<ul class="alt">
 							<li><strong>2026.</strong> XIII Congreso Latinoamericano de Malacología. Oral Presentation: <em>“Sin miedo a las alturas: dinámica vertical y estacional de los caracoles terrestres en el bosque tropical de Los Tuxtlas, México”</em>. Cartagena, Colombia.</li>
-							<li><strong>2025.</strong> Molluscan Forum. Oral presentation: <em>“Stories from the Understory: Land Snails in an Endangered Mexican Rainforest Ecosystem”</em>. Natural History Museum, London, UK.</li>
+							<li><strong>2025.</strong> Molluscan Forum. Oral presentation: <em>“Stories from the Understory: Land Snails in an Endangered Mexican Rainforest Ecosystem”</em>. Natural History Museum, London, UK. <a href="https://malacsoc.org.uk/wp/wp-content/uploads/2026/03/26-02-25-86-February-2026-The-Malacologist-v1a.pdf" target="_blank" rel="noopener noreferrer">[The Malacologist]</a></li>
 							<li><strong>2025.</strong> PartWiss 2025. Oral Presentation: <em>“I have friends everywhere: Citizen science and invasive freshwater mollusks in Mexico”</em>. Leipzig, Germany.</li>
-							<li><strong>2025.</strong> XXII World Congress of Malacology. Oral presentation: <em>“Who Is to Blame? First Records of the Non-Native Predatory Snail Tomostele musaecola in Mexico and Implications for Its Potential Spread in Cancún”</em>. São Paulo, Brazil.</li>
-							<li><strong>2025.</strong> XXII World Congress of Malacology. Poster: <em>“Beyond Beaches and Resorts: Molluscan Biodiversity and Sampling Gaps in Cancún, México”</em>. São Paulo, Brazil.</li>
+							<li><strong>2025.</strong> XXII World Congress of Malacology. Oral presentation: <em>“Who Is to Blame? First Records of the Non-Native Predatory Snail Tomostele musaecola in Mexico and Implications for Its Potential Spread in Cancún”</em>. São Paulo, Brazil. <a href="https://www.unitasmalacologica.org/uploads/7/4/8/7/74870527/abstract_book_wcm2025_-_v.2.pdf" target="_blank" rel="noopener noreferrer">[Abstract Book WCM 2025]</a></li>
+							<li><strong>2025.</strong> XXII World Congress of Malacology. Poster: <em>“Beyond Beaches and Resorts: Molluscan Biodiversity and Sampling Gaps in Cancún, México”</em>. São Paulo, Brazil. <a href="https://www.unitasmalacologica.org/uploads/7/4/8/7/74870527/abstract_book_wcm2025_-_v.2.pdf" target="_blank" rel="noopener noreferrer">[Abstract Book WCM 2025]</a></li>
 							<li><strong>2025.</strong> XVII Reunión Nacional de Malacología y Conquiliología y 58th Annual Meeting of the Western Society of Malacologists. Oral presentation: <em>“Inventario taxonómico de caracoles continentales del Área Natural Protegida ‘Parque Ecológico Kabah’, Quintana Roo, México”</em>. Universidad de Sonora, México.</li>
-							<li><strong>2024.</strong> XXVI Congreso Nacional de Zoología. Poster: <em>“Un poco de todo: Nuevos registros de caracoles marinos, terrestres y dulceacuícolas en un parque urbano en Cancún”</em>. Universidad de Colima, México.</li>
+							<li><strong>2024.</strong> XXVI Congreso Nacional de Zoología. Poster: <em>“Un poco de todo: Nuevos registros de caracoles marinos, terrestres y dulceacuícolas en un parque urbano en Cancún”</em>. Universidad de Colima, México. <a href="https://somexzoo.com/CMS/archivos_comunicados/XXVI%20CNZ%20Memorias%20__ndice_u7eai36i.pdf?id=7" target="_blank" rel="noopener noreferrer">[Memorias XXVI CNZ]</a></li>
 							<li><strong>2024.</strong> XXVI Congreso Nacional de Zoología. Oral presentation: <em>“Microambientes urbanos: Un análisis de las comunidades de caracoles terrestres en el Parque Kabah, Quintana Roo”</em>. Universidad de Colima, México.</li>
 							<li><strong>2024.</strong> XXVI Congreso Nacional de Zoología. Oral presentation: <em>“Caracoles marinos y terrestres de cuevas (cenotes) en Playa del Carmen, Quintana Roo”</em>. Universidad de Colima, México.</li>
-							<li><strong>2024.</strong> 1st Pan-American Congress on Invasive and Non-Native Aquatic Species. Oral presentation: <em>“Moluscos dulceacuícolas no-nativos de México: Estado Actual y Nuevos Registros”</em>. Online.</li>
+							<li><strong>2024.</strong> 1st Pan-American Congress on Invasive and Non-Native Aquatic Species. Oral presentation: <em>“Moluscos dulceacuícolas no-nativos de México: Estado Actual y Nuevos Registros”</em>. Online. <a href="https://www.icmyl.unam.mx/Pdf/Carteles/Memorias%2011%20oct.pdf" target="_blank" rel="noopener noreferrer">[Abstract Book / Memorias]</a></li>
 							<li><strong>2023.</strong> XII Congreso Latinoamericano de Malacología. Oral presentation: <em>“Registros de moluscos marinos del Parque Urbano Kabah, Cancún, Quintana Roo, México”</em>. Online.</li>
 							<li><strong>2022.</strong> XXV Congreso Nacional de Zoología. Poster: <em>“Avances en el conocimiento de gasterópodos continentales de Cancún”</em>. Facultad de Ciencias, UNAM. México.</li>
 						</ul>
@@ -202,7 +320,7 @@
 						<h3>Conference Presentation Highlights Gallery</h3>
 						<div class="box alt">
 							<div class="row gtr-50 gtr-uniform">
-								<div class="col-12">
+								<div class="col-6 col-12-xsmall">
 									<span class="image fit"><img src="images/494543437_1133456988810813_6846554650868059353_n (1).jpg" alt="Oral Presentation at XVII RENAMAC / 58th WSM 2025" /></span>
 									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Oral Presentation at the 58th Annual Meeting of the Western Society of Malacologists & XVII RENAMAC (Sonora, Mexico, 2025).</em></p>
 								</div>
@@ -210,6 +328,7 @@
 									<span class="image fit"><img src="images/WhatsApp Image 2026-10-20 at 17.56.24.jpeg" alt="Oral Presentation at XXII World Congress of Malacology 2025" /></span>
 									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Oral Presentation at the XXII World Congress of Malacology (São Paulo, Brazil, 2025).</em></p>
 								</div>
+
 								<div class="col-6 col-12-xsmall">
 									<span class="image fit"><img src="images/784075858_1566665332156641_4508524570056957502_n.jpg" alt="Oral Presentation at XIII CLAMA 2026" /></span>
 									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Oral Presentation at the XIII Congreso Latinoamericano de Malacología - CLAMA (Cartagena, Colombia, 2026).</em></p>
@@ -223,12 +342,18 @@
 					</section>
 
 
-				<!-- SUBPAGE: PHOTOS (Formerly Archivo Fotográfico - Captions removed) -->
+				<!-- SUBPAGE: PHOTOS -->
 					<section id="galeria-fotografica" class="project-detail" style="display: none;">
 						<header class="major">
 							<h2>Photos</h2>
 							<p><em>Macro Photography & Rainforest Fieldwork Archive</em></p>
 						</header>
+
+						<div style="background: rgba(255, 255, 255, 0.05); padding: 1.2em 1.5em; border-left: 4px solid #49bf9d; border-radius: 4px; margin-bottom: 2em;">
+							<p style="margin: 0; font-size: 0.95em; color: #ddd;">
+								<strong>Photo Credits & Disclaimer:</strong> Macro photography and rainforest fieldwork photographs presented in this archive were captured by <strong>Luis Armando Navarro Zarco</strong> during biodiversity research projects led by Tadeo Esquivel Blanco in Los Tuxtlas Biosphere Reserve and tropical Neotropical ecosystems.
+							</p>
+						</div>
 
 						<h3>Macro Photography Gallery — Terrestrial & Microgastropods</h3>
 						<div class="box alt">
@@ -266,26 +391,6 @@
 							</div>
 						</div>
 
-						<hr />
-
-						<h3>Los Tuxtlas Rainforest Fieldwork & Canopy Sampling</h3>
-						<div class="box alt">
-							<div class="row gtr-50 gtr-uniform">
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/DSC08107.jpg" alt="Sampling lower canopy on Astrocaryum mexicanum" /></span>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/DSC08980.jpg" alt="Rainforest canopy in Los Tuxtlas" /></span>
-								</div>
-							</div>
-						</div>
-
-						<div style="background: rgba(255, 255, 255, 0.05); padding: 1.2em 1.5em; border-left: 4px solid #49bf9d; border-radius: 4px; margin-top: 2em; margin-bottom: 1.5em;">
-							<p style="margin: 0; font-size: 0.95em; color: #ddd;">
-								<strong>Photo Credits & Disclaimer:</strong> Macro photography and rainforest fieldwork photographs presented in this archive were captured by <strong>Luis Armando Navarro Zarco</strong> during biodiversity research projects led by Tadeo Esquivel Blanco in Los Tuxtlas Biosphere Reserve and tropical Neotropical ecosystems.
-							</p>
-						</div>
-
 						<ul class="actions" style="margin-top: 2em;">
 							<li><a href="javascript:void(0)" onclick="closeProject(event)" class="button primary icon solid fa-arrow-left">Back to Home</a></li>
 						</ul>
@@ -302,36 +407,6 @@
 							Kabah Ecological Park is a crucial remnant of medium sub-evergreen forest embedded within the urban landscape of Cancún, Quintana Roo. This project represents the first systematic and comprehensive assessment of continental gastropod diversity in the protected area, documenting Neotropical malacofauna resilient to habitat fragmentation.
 						</p>
 
-						<h3>Project Gallery & Scientific Evidence</h3>
-						<div class="box alt">
-							<div class="row gtr-50 gtr-uniform">
-								<div class="col-12">
-									<span class="image fit"><img src="images/593541695_4421191648109111_3467348682334685840_n.jpg" alt="Taxonomic plate of 46 taxa in Kabah Park" /></span>
-									<p style="text-align: center; font-size: 0.9em; margin-top: -0.5em; margin-bottom: 1.5em;"><em>Figure 1. Complete taxonomic plate displaying the 46 continental gastropod taxa recorded in Kabah Ecological Park (scale bar = 1 cm).</em></p>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/595375785_4421192101442399_5951196502706581347_n.jpg" alt="Marisa cornuarietis shell plate" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 2. Shell morphology of the invasive freshwater apple snail Marisa cornuarietis (Ampullariidae) in dorsal, apertural, and ventral views (scale bar = 1 cm).</em></p>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/Imagen1.jpg" alt="Kabah Park habitat and trail" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 3. Forest canopy and urban interface within Kabah Ecological Park, Cancún.</em></p>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/Imagen2.jpg" alt="Topsoil mounds acting as invasion vectors" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 4. Dumped topsoil mounds inside the park serving as introduction vectors for non-native species.</em></p>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/Gentil.jpg" alt="Detailed live land snail specimen" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 5. High-resolution specimen photograph showing extended soft tissue and operculum morphology.</em></p>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/Trueque.jpg" alt="Microgastropod scale on coin" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 6. Extreme size comparison: minute land microgastropod positioned on a 50-centavo coin.</em></p>
-								</div>
-							</div>
-						</div>
-
 						<h3>Key Findings</h3>
 						<ul>
 							<li><strong>Taxonomic Richness:</strong> Documented 46 continental gastropod taxa, establishing Kabah Park as the site with the highest reported snail richness in Quintana Roo.</li>
@@ -343,7 +418,7 @@
 
 						<h3>Methodology & Impact</h3>
 						<p>
-							Field sampling integrated direct manual collection, leaf litter and soil sieving, and stereomicroscopic sorting. All voucher specimens were cataloged and deposited in the National Collection of Mollusks (CNMO) at the Institute of Biology, UNAM.
+							Field sampling integrated direct manual collection, leaf litter and soil sieving, and stereomicroscopic sorting. All voucher specimens were cataloged and deposited in the National Collection of Mollusks (CNMO) at the Institute of Biology, UNAM. <a href="https://tesiunamdocumentos.dgb.unam.mx/ptd2024/oct_dic/0863996/Index.html" target="_blank" rel="noopener noreferrer"><strong>[View Full B.Sc. Thesis on TESIUNAM]</strong></a>
 						</p>
 
 						<hr />
@@ -360,7 +435,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>"Carlos Enrique Chávez Solís" Best B.Sc. Thesis Award in Biology</td>
+										<td><a href="https://drive.google.com/file/d/1EzgqGwfQKJQataoPjtZEFmjbT9VIMkE5/view" target="_blank" rel="noopener noreferrer">"Carlos Enrique Chávez Solís" Best B.Sc. Thesis Award in Biology</a></td>
 										<td>Faculty of Sciences, UNAM</td>
 										<td>2025</td>
 									</tr>
@@ -371,6 +446,30 @@
 									</tr>
 								</tbody>
 							</table>
+						</div>
+
+						<hr />
+
+						<h3>Project Gallery & Scientific Evidence</h3>
+						<div class="box alt">
+							<div class="row gtr-50 gtr-uniform">
+								<div class="col-12">
+									<span class="image fit"><img src="images/593541695_4421191648109111_3467348682334685840_n.jpg" alt="Taxonomic plate of 46 taxa in Kabah Park" /></span>
+									<p style="text-align: center; font-size: 0.9em; margin-top: -0.5em; margin-bottom: 1.5em;"><em>Figure 1. Complete taxonomic plate displaying the 46 continental gastropod taxa recorded in Kabah Ecological Park (scale bar = 1 cm).</em></p>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<span class="image fit"><img src="images/Imagen1.jpg" alt="Kabah Park habitat and trail" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 2. Forest canopy and urban interface within Kabah Ecological Park, Cancún.</em></p>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<span class="image fit"><img src="images/Gentil.jpg" alt="Detailed live land snail specimen" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 3. High-resolution specimen photograph showing extended soft tissue and operculum morphology.</em></p>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<span class="image fit"><img src="images/Trueque.jpg" alt="Microgastropod scale on coin" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 4. Extreme size comparison: minute land microgastropod positioned on a 50-centavo coin.</em></p>
+								</div>
+							</div>
 						</div>
 
 						<ul class="actions">
@@ -388,6 +487,23 @@
 						<p>
 							Biological invasions represent one of the primary drivers of global biodiversity loss. This project evaluates national occurrence dynamics, transport pathways, and ecological risks of introduced and invasive non-native gastropod species across aquatic and terrestrial ecosystems in Mexico. The research integrates national macro-scale spatial analysis (GBIF dataset and Kernel Density Estimation modeling) with specific local case studies on high-risk invasive taxa.
 						</p>
+
+						<h3>Research Highlights & Major Invasiveness Studies</h3>
+						<ul>
+							<li><strong>National Spatial Density Analysis:</strong> Processing GBIF occurrence records (human observations and preserved museum specimens) applying Kernel Density Estimation (KDE) contours to identify major introduction clusters and high-risk river basins in central and southern Mexico.</li>
+							<li><strong>First Record of <em>Tomostele musaecola</em>:</strong> First documented detection in Mexico of the carnivorous predator snail <em>Tomostele musaecola</em> (Streptaxidae) in Cancún, Quintana Roo, posing a direct threat to native Neotropical microgastropods.</li>
+							<li><strong>Freshwater Bivalve & Gastropod Invasions:</strong> Assessment of establishment, ecological impacts, and dispersal pathways of non-native freshwater mollusks such as the Asian clam <em>Corbicula</em> sp. and the apple snail <em>Marisa cornuarietis</em> in Neotropical ecosystems. <a href="https://hidrobiologica.izt.uam.mx/hidrobiologica/index.php/revHidro/article/view/1820/1273" target="_blank" rel="noopener noreferrer"><strong>[Read Hidrobiológica Publication]</strong></a></li>
+							<li><strong>Anthropogenic Vectors:</strong> Identification of commercial landscaping, bulk topsoil transport, and aquarium trade as the leading pathways driving mollusk introductions across Mexico.</li>
+						</ul>
+
+						<hr />
+
+						<h3>Scientific & Policy Impact</h3>
+						<p>
+							These spatial models and taxonomic case studies generate essential baseline data for environmental authorities to design early-detection protocols, biosecurity measures, and management strategies in protected natural areas.
+						</p>
+
+						<hr />
 
 						<h3>National Mapping & Taxonomic Evidence Gallery</h3>
 						<div class="box alt">
@@ -415,21 +531,6 @@
 							</div>
 						</div>
 
-						<h3>Research Highlights & Major Invasiveness Studies</h3>
-						<ul>
-							<li><strong>National Spatial Density Analysis:</strong> Processing GBIF occurrence records (human observations and preserved museum specimens) applying Kernel Density Estimation (KDE) contours to identify major introduction clusters and high-risk river basins in central and southern Mexico.</li>
-							<li><strong>First Record of <em>Tomostele musaecola</em>:</strong> First documented detection in Mexico of the carnivorous predator snail <em>Tomostele musaecola</em> (Streptaxidae) in Cancún, Quintana Roo, posing a direct threat to native Neotropical microgastropods.</li>
-							<li><strong>Freshwater Bivalve & Gastropod Invasions:</strong> Assessment of establishment, ecological impacts, and dispersal pathways of non-native freshwater mollusks such as the Asian clam <em>Corbicula</em> sp. and the apple snail <em>Marisa cornuarietis</em> in Neotropical ecosystems.</li>
-							<li><strong>Anthropogenic Vectors:</strong> Identification of commercial landscaping, bulk topsoil transport, and aquarium trade as the leading pathways driving mollusk introductions across Mexico.</li>
-						</ul>
-
-						<hr />
-
-						<h3>Scientific & Policy Impact</h3>
-						<p>
-							These spatial models and taxonomic case studies generate essential baseline data for environmental authorities to design early-detection protocols, biosecurity measures, and management strategies in protected natural areas.
-						</p>
-
 						<ul class="actions">
 							<li><a href="javascript:void(0)" onclick="closeProject(event)" class="button primary icon solid fa-arrow-left">Back to Home</a></li>
 						</ul>
@@ -445,6 +546,21 @@
 						<p>
 							Research conducted at Los Tuxtlas Biosphere Reserve in Veracruz, evaluating land gastropod community structure across understory leaf litter and lower canopy microhabitats formed by the understory palm <em>Astrocaryum mexicanum</em>, advised by Dr. Edna Naranjo García.
 						</p>
+
+						<h3>Key Findings</h3>
+						<ul>
+							<li><strong>Species Diversity:</strong> Identified 15 land gastropod species inhabiting understory litter and suspended litter traps inside palm crowns.</li>
+							<li><strong>Taxonomic Novelty:</strong> First regional record of the genus <em>Microconus</em> for Los Tuxtlas.</li>
+							<li><strong>Ecological Modeling (pSEM):</strong> Utilized piecewise Structural Equation Modeling, demonstrating that <em>A. mexicanum</em> palms indirectly facilitate snail abundance and richness by functioning as suspended litter traps in the lower canopy.</li>
+						</ul>
+
+						<div style="background: rgba(255, 255, 255, 0.05); padding: 1.2em 1.5em; border-left: 4px solid #49bf9d; border-radius: 4px; margin-top: 2em; margin-bottom: 1.5em;">
+							<p style="margin: 0; font-size: 0.9em; color: #ddd;">
+								<strong>Photo Credits & Disclaimer:</strong> All fieldwork and macro photographs in this project were captured by <strong>Luis Armando Navarro Zarco</strong>.
+							</p>
+						</div>
+
+						<hr />
 
 						<h3>Fieldwork Gallery & Tropical Rainforest Research</h3>
 						<div class="box alt">
@@ -476,19 +592,6 @@
 							</div>
 						</div>
 
-						<h3>Key Findings</h3>
-						<ul>
-							<li><strong>Species Diversity:</strong> Identified 15 land gastropod species inhabiting understory litter and suspended litter traps inside palm crowns.</li>
-							<li><strong>Taxonomic Novelty:</strong> First regional record of the genus <em>Microconus</em> for Los Tuxtlas.</li>
-							<li><strong>Ecological Modeling (pSEM):</strong> Utilized piecewise Structural Equation Modeling, demonstrating that <em>A. mexicanum</em> palms indirectly facilitate snail abundance and richness by functioning as suspended litter traps in the lower canopy.</li>
-						</ul>
-
-						<div style="background: rgba(255, 255, 255, 0.05); padding: 1.2em 1.5em; border-left: 4px solid #49bf9d; border-radius: 4px; margin-top: 2em; margin-bottom: 1.5em;">
-							<p style="margin: 0; font-size: 0.9em; color: #ddd;">
-								<strong>Photo Credits & Disclaimer:</strong> All fieldwork and macro photographs in this project were captured by <strong>Luis Armando Navarro Zarco</strong>.
-							</p>
-						</div>
-
 						<ul class="actions">
 							<li><a href="javascript:void(0)" onclick="closeProject(event)" class="button primary icon solid fa-arrow-left">Back to Home</a></li>
 						</ul>
@@ -502,8 +605,25 @@
 						</header>
 
 						<p>
-							Interdisciplinary community research assessing limnological dynamics at the "Fernando Hiriart Balderas" (Zimapán) Hydroelectric Dam, situated between Hidalgo and Querétaro, evaluating trophic state impacts on local artisanal fisheries.
+							Interdisciplinary community research assessing limnological dynamics at the "Fernando Hiriart Balderas" (Zimapán) Hydroelectric Dam, situated between Hidalgo and Querétaro, evaluating trophic state impacts on local artisanal fisheries. This project was led by Dr. Fernando Cordova from the Instituto de Ciencias del Mar y Limnología. 
+							<a href="https://unamglobal.unam.mx/global_tv/crisis-pesquera-en-zimapan-especialistas-identifican-causa/?fbclid=IwY2xjawVHmb5leHRuA2FlbQIxMQBwZG9mBXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR77VVaLCfdRMjNJIwsWAbKIv00KC0JWB7jEnGqX_oA0El7KFWlQ971K0mD1bA_aem_PB-5m1YdLrmyR0tcLOL0og" target="_blank" rel="noopener noreferrer"><strong>[Watch UNAM Global TV Special]</strong></a>
 						</p>
+
+						<h3>Activities & Social Impact</h3>
+						<ul>
+							<li><strong>Zooplankton Analysis:</strong> Processed and identified over 20,000 zooplankton specimens (Rotifera, Cladocera, Copepoda) to class, order, and family levels.</li>
+							<li><strong>Water Quality Diagnosis:</strong> Evaluated physicochemical parameters to diagnose reservoir hypertrophication and aquatic food web structure.</li>
+							<li><strong>Community Support:</strong> Delivered scientific data to support local fishing cooperatives in sustainable fisheries management.</li>
+						</ul>
+
+						<hr />
+
+						<h3>Award Recognition</h3>
+						<p>
+							For its community impact and scientific rigor, this project was awarded the prestigious <a href="https://www.gaceta.unam.mx/tag/premio-al-servicio-social-dr-gustavo-baz-prada-2024/" target="_blank" rel="noopener noreferrer"><strong>"Gustavo Baz Prada 2024" Award</strong></a> by the National Autonomous University of Mexico.
+						</p>
+
+						<hr />
 
 						<h3>Limnological Fieldwork & Aquatic Assessment Gallery</h3>
 						<div class="box alt">
@@ -527,20 +647,6 @@
 							</div>
 						</div>
 
-						<h3>Activities & Social Impact</h3>
-						<ul>
-							<li><strong>Zooplankton Analysis:</strong> Processed and identified over 20,000 zooplankton specimens (Rotifera, Cladocera, Copepoda) to class, order, and family levels.</li>
-							<li><strong>Water Quality Diagnosis:</strong> Evaluated physicochemical parameters to diagnose reservoir hypertrophication and aquatic food web structure.</li>
-							<li><strong>Community Support:</strong> Delivered scientific data to support local fishing cooperatives in sustainable fisheries management.</li>
-						</ul>
-
-						<hr />
-
-						<h3>Award Recognition</h3>
-						<p>
-							For its community impact and scientific rigor, this project was awarded the prestigious <strong>"Gustavo Baz Prada 2024" Award</strong> by the National Autonomous University of Mexico.
-						</p>
-
 						<ul class="actions">
 							<li><a href="javascript:void(0)" onclick="closeProject(event)" class="button primary icon solid fa-arrow-left">Back to Home</a></li>
 						</ul>
@@ -557,12 +663,24 @@
 							My academic career includes extensive technical management and curation of major malacological collections in Mexico and Europe, applying international taxonomic standards, digital cataloging, and specimen preservation protocols.
 						</p>
 
+						<h3>Collections Curation Highlights</h3>
+						<ul>
+							<li><strong>Museum für Naturkunde (Berlin, Germany):</strong> Curatorial residency (2023) focusing on historical malacological collections, including taxonomic verification, organization, and digital QR cataloging of Pacific island tree snails (Partulidae: <em>Partula</em>).</li>
+							<li><strong>National Collection of Mollusks (CNMO, UNAM):</strong> Research Assistant (2021–present), leading curation, cataloging, specimen processing and multifocal photography, wet/dry collection maintenance, and scientific identification of terrestrial and marine mollusk taxa.</li>
+							
+							<li><strong>Teaching & Academic Engagement:</strong> Served as Guest Lecturer for the university course <em>“Malacology”</em>.</li>
+						</ul>
+
+						<hr />
+
 						<h3>Gallery: Curatorial Work, Specimen Processing & Teaching</h3>
 						<div class="box alt">
 							<div class="row gtr-50 gtr-uniform">
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/micro.jpg" alt="Specimen processing and multifocal photography at CNMO" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 1. Specimen processing, taxonomic curation, and multifocal photography at the National Collection of Mollusks (CNMO, UNAM).</em></p>
+								<div class="col-6 col-12-xsmall" style="text-align: center;">
+									<div style="max-width: 320px; margin: 0 auto;">
+										<span class="image fit"><img src="images/micro.jpg" alt="Specimen processing and multifocal photography at CNMO" style="max-height: 280px; object-fit: cover; border-radius: 6px;" /></span>
+									</div>
+									<p style="text-align: center; font-size: 0.85em; margin-top: 0.5em;"><em>Figure 1. Specimen processing, taxonomic curation, and multifocal photography at the National Collection of Mollusks (CNMO, UNAM).</em></p>
 								</div>
 								<div class="col-6 col-12-xsmall">
 									<span class="image fit"><img src="images/801396603_1405335265057989_8495852600051394193_n.jpg" alt="Guest lecturer in Malacology course" /></span>
@@ -576,20 +694,16 @@
 									<span class="image fit"><img src="images/Imagen3.png" alt="Partula crassilabris and Partula canalis specimens" /></span>
 									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 4. Reference historical specimens of Partula crassilabris and P. canalis (Raiatea, MfN collection 88380) with digital QR cataloging.</em></p>
 								</div>
-								<div class="col-12">
+								<div class="col-6 col-12-xsmall">
+									<span class="image fit"><img src="images/20260330_120432.jpg" alt="Curatorial team and collaboration at Museum für Naturkunde Berlin" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 5. Curatorial research stay and collaboration at Museum für Naturkunde Berlin.</em></p>
+								</div>
+								<div class="col-6 col-12-xsmall">
 									<span class="image fit"><img src="images/mapa.png" alt="Biogeographic distribution map of Partulidae in Melanesia" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 5. Biogeographic mapping of Partulidae in Melanesia showing expected vs. unexpected historical species distribution records.</em></p>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 6. Biogeographic mapping of Partulidae in Melanesia showing expected vs. unexpected historical species distribution records.</em></p>
 								</div>
 							</div>
 						</div>
-
-						<h3>Collections Curation Highlights</h3>
-						<ul>
-							<li><strong>Museum für Naturkunde (Berlin, Germany):</strong> Curatorial residency (2023) focusing on historical malacological collections, including taxonomic verification, organization, and digital QR cataloging of Pacific island tree snails (Partulidae: <em>Partula</em>).</li>
-							<li><strong>National Collection of Mollusks (CNMO, UNAM):</strong> Research Assistant (2021–present), leading curation, cataloging, specimen processing and multifocal photography, wet/dry collection maintenance, and scientific identification of terrestrial and marine mollusk taxa.</li>
-							<li><strong>International Academic Exchange:</strong> Specialized research stays at Freie Universität Berlin (Germany, 2023) and Universidad de Oviedo (Spain, 2022).</li>
-							<li><strong>Teaching & Academic Engagement:</strong> Served as Guest Lecturer for the university course <em>“Malacology”</em>.</li>
-						</ul>
 
 						<ul class="actions">
 							<li><a href="javascript:void(0)" onclick="closeProject(event)" class="button primary icon solid fa-arrow-left">Back to Home</a></li>
@@ -599,7 +713,7 @@
 				<!-- SUBPAGE 6: INTERNATIONAL COLLABORATIONS, CONSERVATION & GRANTS -->
 					<section id="colaboraciones-internacionales" class="project-detail" style="display: none;">
 						<header class="major">
-							<h2>International Collaborations, Conservation Biology & Competitive Grants</h2>
+							<h2>International Collaborations & Conservation</h2>
 							<p><em>Biomechanics, Mohamed bin Zayed Conservation Fund & IUCN Red List Assessment</em></p>
 						</header>
 
@@ -610,16 +724,8 @@
 						<!-- 1. MOHAMED BIN ZAYED SPECIES CONSERVATION FUND: SIERRA GORDA -->
 						<h3>1. Freshwater Snails of Sierra Gorda Biosphere Reserve (MBZ Conservation Fund)</h3>
 						<p>
-							International conservation research project <strong>co-directed alongside Ph.D. candidate Rodrigo Rangel</strong>, funded by <strong>The Mohamed bin Zayed Species Conservation Fund</strong> (Grant No. 242534065, $6,350 USD). The study evaluates species diversity, microhabitat preferences, and conservation priorities for endemic aquatic gastropods in karst spring complexes across the Sierra Gorda Reserve.
+							International conservation research project <strong>co-directed alongside Ph.D. candidate Rodrigo Rangel</strong>, funded by <a href="https://www.speciesconservation.org/small-grant/jute-snails/44165" target="_blank" rel="noopener noreferrer"><strong>The Mohamed bin Zayed Species Conservation Fund</strong></a> (Grant No. 242534065, $6,350 USD). The study evaluates species diversity, microhabitat preferences, and conservation priorities for endemic aquatic gastropods in karst spring complexes across the Sierra Gorda Reserve.
 						</p>
-						<div class="box alt">
-							<div class="row gtr-50 gtr-uniform">
-								<div class="col-12" style="text-align: center;">
-									<span class="image fit"><img src="images/DSC00689.jpg" alt="In situ live freshwater snail specimen in Sierra Gorda" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em; margin-bottom: 1.5em;"><em>Figure 1. In situ macro photograph of an active freshwater snail specimen grazing on submerged decaying leaf litter in karst spring habitats of Sierra Gorda (MBZ Fund Project, co-directed with Rodrigo Rangel).</em></p>
-								</div>
-							</div>
-						</div>
 
 						<hr />
 
@@ -628,8 +734,24 @@
 						<p>
 							Research collaboration with <strong>Dr. Winfried Peters</strong> at the <strong>Senckenberg Research Institute and Natural History Museum</strong> (Frankfurt, Germany), examining soft tissue retraction mechanisms and foot biomechanics in marine gastropods of the family <strong>Olividae</strong>.
 						</p>
+
+						<hr />
+
+						<!-- 3. IUCN SSC RED LIST ASSESSMENT -->
+						<h3>3. IUCN SSC Terrestrial & Freshwater Snail Specialist Group</h3>
+						<p>
+							Serving as technical reviewer and expert evaluator for the <a href="https://iucn.org/es/noticias/202605/expertos-de-mesoamerica-se-reunien-en-guatemala-para-avanzar-en-la-evaluacion-de?fbclid=IwY2xjawVHmTVleHRuA2FlbQIxMQBwZG9mBXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR78NIeOmyVXOYDj8l_kQ5dW9dKnmtFO2vfqewdFReuQaRK5loZN5wplK2v-zg_aem_6U7XThZ8Xmxtw0C_nditcg" target="_blank" rel="noopener noreferrer"><strong>IUCN SSC Terrestrial & Freshwater Snail Specialist Group</strong></a>, conducting extinction risk assessments and assigning threat categories for Mesoamerican continental mollusks during regional expert workshops.
+						</p>
+
+						<hr />
+
+						<h3>Research Media & Project Gallery</h3>
 						<div class="box alt">
 							<div class="row gtr-50 gtr-uniform">
+								<div class="col-12" style="text-align: center;">
+									<span class="image fit"><img src="images/DSC00689.jpg" alt="In situ live freshwater snail specimen in Sierra Gorda" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em; margin-bottom: 1.5em;"><em>Figure 1. In situ macro photograph of an active freshwater snail specimen grazing on submerged decaying leaf litter in karst spring habitats of Sierra Gorda (MBZ Fund Project, co-directed with Rodrigo Rangel).</em></p>
+								</div>
 								<div class="col-12" style="text-align: center;">
 									<div style="max-width: 500px; margin: 0 auto; background: #1a1a1a; padding: 10px; border-radius: 8px;">
 										<video controls preload="metadata" style="width: 100%; border-radius: 6px; display: block;">
@@ -637,20 +759,8 @@
 											Your browser does not support HTML5 video streaming.
 										</video>
 									</div>
-									<p style="font-size: 0.85em; margin-top: 0.8em;"><em>Video 1. In vivo experimental recording showing foot and mantle retraction mechanisms in live Olividae specimens (scale reference: 50-centavo coin). Research collaboration with Dr. Winfried Peters (Senckenberg Research Institute).</em></p>
+									<p style="font-size: 0.85em; margin-top: 0.8em; margin-bottom: 1.5em;"><em>Video 1. In vivo experimental recording showing foot and mantle retraction mechanisms in live Olividae specimens (scale reference: 50-centavo coin). Research collaboration with Dr. Winfried Peters (Senckenberg Research Institute).</em></p>
 								</div>
-							</div>
-						</div>
-
-						<hr />
-
-						<!-- 3. IUCN SSC RED LIST ASSESSMENT -->
-						<h3>3. IUCN SSC Terrestrial & Freshwater Snail Specialist Group</h3>
-						<p>
-							Serving as technical reviewer and expert evaluator for the <strong>IUCN SSC Terrestrial & Freshwater Snail Specialist Group</strong>, conducting extinction risk assessments and assigning threat categories for Mesoamerican continental mollusks during regional expert workshops.
-						</p>
-						<div class="box alt">
-							<div class="row gtr-50 gtr-uniform">
 								<div class="col-12">
 									<span class="image fit"><img src="images/img_81712.jpg" alt="IUCN SSC Terrestrial & Freshwater Snail Specialist Group Workshop in Guatemala" /></span>
 									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 2. Regional Mesoamerican expert panel meeting in Guatemala for the IUCN SSC Terrestrial & Freshwater Snail Red List Assessment.</em></p>
@@ -674,20 +784,6 @@
 							Throughout my academic career at UNAM and international institutions, I have been honored with fellowships and awards recognizing research excellence and community commitment:
 						</p>
 
-						<h3>Institutional Distinctions Gallery</h3>
-						<div class="box alt">
-							<div class="row gtr-50 gtr-uniform">
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/1781131315336.jpeg" alt="Fulbright-García Robles Grantee Cohort" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 1. Fulbright-García Robles STEM Awardee Cohort selected by COMEXUS / U.S. Department of State.</em></p>
-								</div>
-								<div class="col-6 col-12-xsmall">
-									<span class="image fit"><img src="images/241121-com6-des-f1-Premio-al-servicio-social.jpg" alt="Premio Gustavo Baz Prada Awardees UNAM" /></span>
-									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 2. Official "Gustavo Baz Prada 2024" Award Ceremony at National Autonomous University of Mexico (UNAM).</em></p>
-								</div>
-							</div>
-						</div>
-
 						<div class="table-wrapper">
 							<table>
 								<thead>
@@ -699,37 +795,72 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>Fulbright-García Robles STEM Award</td>
+										<td><a href="https://drive.google.com/file/d/1jSd-gLzBGBu7fqhuxfbmCIACjI-vBUkt/view" target="_blank" rel="noopener noreferrer">Fulbright-García Robles STEM Award</a></td>
 										<td>COMEXUS / U.S. Department of State</td>
+										<td>2027</td>
+									</tr>
+									<tr>
+										<td><a href="https://www.speciesconservation.org/small-grant/jute-snails/44165" target="_blank" rel="noopener noreferrer">Conservation Grant ($6,350 USD - Sierra Gorda Project)</a></td>
+										<td>The Mohamed bin Zayed Species Conservation Fund</td>
+										<td>2026</td>
+									</tr>
+									<tr>
+										<td>International Mobility Fellowship</td>
+										<td>DGECI & PAEP</td>
+										<td>2022, 2026</td>
+									</tr>
+									<tr>
+										<td>Direktaustausch Student Exchange Scholarship</td>
+										<td>Freie Universität Berlin</td>
 										<td>2025</td>
 									</tr>
 									<tr>
-										<td>"Carlos Enrique Chávez Solís" Best B.Sc. Thesis Award in Biology</td>
+										<td>National Graduate Fellowship</td>
+										<td>SECIHTI</td>
+										<td>2025</td>
+									</tr>
+									<tr>
+										<td>Unitas Malacologica WCM 2025 Travel Grant</td>
+										<td>Unitas Malacologica</td>
+										<td>2025</td>
+									</tr>
+									<tr>
+										<td><a href="https://drive.google.com/file/d/1EzgqGwfQKJQataoPjtZEFmjbT9VIMkE5/view" target="_blank" rel="noopener noreferrer">"Carlos Enrique Chávez Solís" Best B.Sc. Thesis Award in Biology</a></td>
 										<td>Faculty of Sciences, UNAM</td>
 										<td>2025</td>
 									</tr>
 									<tr>
-										<td>"Gustavo Baz Prada" Award for Outstanding Social Service</td>
+										<td><a href="https://www.gaceta.unam.mx/tag/premio-al-servicio-social-dr-gustavo-baz-prada-2024/" target="_blank" rel="noopener noreferrer">"Gustavo Baz Prada" Award for Outstanding Social Service</a></td>
 										<td>UNAM</td>
 										<td>2024</td>
 									</tr>
 									<tr>
-										<td>Conservation Grant ($6,350 USD - Sierra Gorda Project)</td>
-										<td>The Mohamed bin Zayed Species Conservation Fund</td>
-										<td>2024</td>
-									</tr>
-									<tr>
-										<td>Honors in B.Sc. Biology Degree (GPA: 9.67/10)</td>
+										<td><a href="https://tesiunamdocumentos.dgb.unam.mx/ptd2024/oct_dic/0863996/Index.html" target="_blank" rel="noopener noreferrer">Honors in B.Sc. Biology Degree (GPA: 9.67/10)</a></td>
 										<td>Faculty of Sciences, UNAM</td>
 										<td>2024</td>
 									</tr>
-									<tr>
-										<td>International Mobility Fellowship (Freie Universität Berlin)</td>
-										<td>UNAM / Germany</td>
-										<td>2023</td>
-									</tr>
 								</tbody>
 							</table>
+						</div>
+
+						<hr />
+
+						<h3>Institutional Distinctions Gallery</h3>
+						<div class="box alt">
+							<div class="row gtr-50 gtr-uniform">
+								<div class="col-6 col-12-xsmall">
+									<span class="image fit"><img src="images/1781131315336.jpeg" alt="Fulbright-García Robles Grantee Cohort" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 1. Fulbright-García Robles STEM Awardee Cohort selected by COMEXUS / U.S. Department of State.</em></p>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<span class="image fit"><img src="images/241121-com6-des-f1-Premio-al-servicio-social.jpg" alt="Premio Gustavo Baz Prada Awardees UNAM" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 2. Official "Gustavo Baz Prada 2024" Award Ceremony at National Autonomous University of Mexico (UNAM).</em></p>
+								</div>
+								<div class="col-12">
+									<span class="image fit"><img src="images/wcm_travelaward.png" alt="Unitas Malacologica 2025 Travel Grant Award Ceremony" /></span>
+									<p style="text-align: center; font-size: 0.85em; margin-top: -0.5em;"><em>Figure 3. Unitas Malacologica 2025 Travel Grant Award Ceremony on stage at the World Congress of Malacology (São Paulo, Brazil). <a href="https://www.unitasmalacologica.org/uploads/7/4/8/7/74870527/umnewsletter_40.pdf" target="_blank" rel="noopener noreferrer">[UM Newsletter #40]</a></em></p>
+								</div>
+							</div>
 						</div>
 
 						<ul class="actions">
@@ -779,6 +910,13 @@
 						event.preventDefault();
 						event.stopPropagation();
 						if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+						
+						// Actualizar estado activo en el menú superior
+						if (event.currentTarget && event.currentTarget.classList.contains('nav-link')) {
+							var links = document.querySelectorAll('#top-nav a.nav-link');
+							links.forEach(function(l) { l.classList.remove('active'); });
+							event.currentTarget.classList.add('active');
+						}
 					}
 
 					var mainViews = document.querySelectorAll('.main-view');
@@ -805,6 +943,11 @@
 						event.preventDefault();
 						event.stopPropagation();
 					}
+
+					// Restablecer el estado activo a Home
+					var links = document.querySelectorAll('#top-nav a.nav-link');
+					links.forEach(function(l) { l.classList.remove('active'); });
+					if(links.length > 0) links[0].classList.add('active');
 
 					var projectDetails = document.querySelectorAll('.project-detail');
 					projectDetails.forEach(function(el) {
